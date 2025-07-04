@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Recovery Predictor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-4xl border border-gray-200">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">💰 Loan Recovery Action Predictor</h1>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+            Enter customer details to get a suggested loan collection method.
+            **Note:** This is a client-side simulation; actual ML model prediction requires a backend server.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Personal & Loan Details Section -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-100">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Personal & Loan Details</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                        <input type="number" id="age" value="30" min="18" max="100"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                    <div>
+                        <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                        <select id="gender"
+                                class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm bg-white">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="employmentType" class="block text-sm font-medium text-gray-700 mb-1">Employment Type</label>
+                        <select id="employmentType"
+                                class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm bg-white">
+                            <option value="Salaried">Salaried</option>
+                            <option value="Self-Employed">Self-Employed</option>
+                            <option value="Business">Business</option>
+                            <option value="Unemployed">Unemployed</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="monthlyIncome" class="block text-sm font-medium text-gray-700 mb-1">Monthly Income</label>
+                        <input type="number" id="monthlyIncome" value="3000" min="0" step="100"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                    <div>
+                        <label for="loanAmount" class="block text-sm font-medium text-gray-700 mb-1">Loan Amount</label>
+                        <input type="number" id="loanAmount" value="10000" min="0" step="500"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Performance Section -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-100">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Loan Performance</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="loanTenure" class="block text-sm font-medium text-gray-700 mb-1">Loan Tenure (months)</label>
+                        <input type="number" id="loanTenure" value="36" min="1" step="1"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                    <div>
+                        <label for="interestRate" class="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label>
+                        <input type="number" id="interestRate" value="10.0" min="0" max="100" step="0.1"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                    <div>
+                        <label for="monthlyEMI" class="block text-sm font-medium text-gray-700 mb-1">Monthly EMI</label>
+                        <input type="number" id="monthlyEMI" value="350.0" min="0" step="10"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                    <div>
+                        <label for="numMissedPayments" class="block text-sm font-medium text-gray-700 mb-1">Number of Missed Payments</label>
+                        <input type="number" id="numMissedPayments" value="1" min="0" step="1"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                    <div>
+                        <label for="daysPastDue" class="block text-sm font-medium text-gray-700 mb-1">Days Past Due</label>
+                        <input type="number" id="daysPastDue" value="30" min="0" step="1"
+                               class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm">
+                    </div>
+                    <div>
+                        <label for="loanType" class="block text-sm font-medium text-gray-700 mb-1">Loan Type</label>
+                        <select id="loanType"
+                                class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out shadow-sm bg-white">
+                            <option value="Personal">Personal</option>
+                            <option value="Home">Home</option>
+                            <option value="Auto">Auto</option>
+                            <option value="Education">Education</option>
+                            <option value="Business">Business</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="predictButton"
+                class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold text-lg shadow-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200 ease-in-out transform hover:scale-105">
+            Predict Suggested Action
+        </button>
+
+        <!-- Prediction Result Display Area -->
+        <div id="predictionResult" class="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200 shadow-md hidden">
+            <h3 class="text-xl font-bold text-blue-800 mb-3">Prediction Result:</h3>
+            <p id="borrowerLoanInfo" class="text-blue-700 font-medium text-lg mb-2"></p>
+            <p id="actionInfo" class="text-blue-900 text-2xl font-bold"></p>
+        </div>
+
+        <div id="errorMessage" class="mt-4 p-4 bg-red-100 text-red-700 rounded-lg border border-red-300 shadow-sm hidden">
+            <p class="font-semibold">Error:</p>
+            <p id="errorText"></p>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
